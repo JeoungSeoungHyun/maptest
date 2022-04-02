@@ -3,21 +3,22 @@ package site.metacoding.mapapitest;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@RestController
-public class Controller {
+@Controller
+public class MapController {
 
     private final Repository repository;
 
     // 데이터 저장 메서드
-    @GetMapping("/download")
-    public String down() {
+    @GetMapping("/")
+    public String download() {
 
         RestTemplate rt = new RestTemplate();
 
@@ -31,9 +32,18 @@ public class Controller {
 
         repository.saveAll(list);
 
-        System.out.println(list);
+        return "/home";
+    }
 
-        return "성공";
+    @GetMapping("/loading")
+    public @ResponseBody List<List<String>> load() {
+
+        List<Item> list = repository.findAll();
+        PointDto pointDto = new PointDto();
+
+        List<List<String>> points = pointDto.toPoint(list);
+
+        return points;
 
     }
 }

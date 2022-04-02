@@ -22,6 +22,8 @@ public class Item {
     private Integer contentSeq;
     private String areaName;
     private String partName;
+
+    @Column(unique = true)
     private String title;
     private String address;
     private String latitude;
