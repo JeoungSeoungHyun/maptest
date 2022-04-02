@@ -13,6 +13,15 @@
     <div id="map" style="width:100%;height:400px;"></div>
 
     <script>
+        // 데이터 다운 함수
+        let loading = async() => {
+
+            let response = await fetch("/download");
+
+        };
+        loading();
+
+        // 지도 생성
         var mapOptions = {
             center: new naver.maps.LatLng(37.3595704, 127.105399),
             zoom: 10
@@ -20,6 +29,7 @@
 
         var map = new naver.maps.Map('map', mapOptions);
 
+        // 마커 생성
         var markerOptions = {
             position: new naver.maps.LatLng(37.3595704, 127.105399),
             map: map,
